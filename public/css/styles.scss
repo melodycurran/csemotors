@@ -1,0 +1,193 @@
+/***************************************************************
+* VARIABLES
+****************************************************************/
+$highligt-color: #05bff7;
+
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/******* Global Settings ***************/
+* {
+    color: black;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+/***************************************************************
+* DEFAULT CSS SMALLER SCREEN
+****************************************************************/
+#wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/******* Headers ***************/
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2, h3 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.siteName__link, .tools__link {
+    text-decoration: none;
+}
+
+#top-header {
+    @extend .siteName__link;
+    display: flex;
+    justify-content: space-between;
+}
+
+/******* Navigation Bar ***************/
+
+nav ul {
+    display: flex;
+    padding: 1em;
+    text-align: center;
+    background-color: black;
+
+    li {
+        flex: 1 1 auto;
+        list-style: none;
+        width: 2px;
+
+        a {
+            @extend .siteName__link;
+            color: white;
+        }
+    }
+}
+
+/******* Hero Content/Banner ***************/
+#hero-container {
+    width: 100%;
+}
+
+#hero-content {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    background-color: rgba(255,255,255,.6);
+    color: $highligt-color;
+    position: absolute;
+    z-index: 2;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 2px;
+
+        > * {
+            color: $highligt-color;
+        }
+
+        h3 {
+            margin: 0;
+        }
+    }
+}
+.btn img{
+    width: 80%;
+}
+
+#hero-img {
+    width: 70%;
+    margin: 0 10%;
+    z-index: 1;
+}
+
+/******* Product section ***************/
+
+.upgrade {
+    display: flex;
+    flex-wrap: wrap;  
+    text-align: center;
+    gap: 10px;
+    justify-content: center;
+
+    div {
+        flex-basis: 45%;
+        align-items: center;
+
+        p {
+            margin: 0;
+            color: blue;
+        }
+
+        img {
+            vertical-align: middle;
+            position: absolute;
+            transform: translate(-50%,20%);
+        }
+    }
+}
+
+.upgrade__item {
+    background-color: $highligt-color;
+    border: black solid 1px;
+    min-height: 90px;
+}
+
+/******* Reviews section ***************/
+
+#reviews ul {
+    padding-left: 1.5rem;
+}
+
+/***************************************************************
+* FOR BIGGER SCREEN
+****************************************************************/
+@media screen and (min-width: 768px) {
+    body {
+        background-image: url(/images/site/small_check.jpg);
+        background-repeat: no-repeat;
+    }
+
+    #wrapper {
+        background-color: white;
+        border: $highligt-color solid 5px;
+        width: 85%;
+        min-width: 85%;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    #hero-content {
+        width: 20%;
+        position: absolute;
+        z-index: 2;
+        padding: 1rem;
+    }
+
+    .btn img {
+        width: 50%;
+    }
+
+    #main__section-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .upgrade {
+        justify-content: flex-start;
+    }
+
+    #upgrade-section {
+        grid-row: 1 / 2;
+    }
+    
+    #reviews {
+        grid-column: 2 / 3;
+
+        ul li {
+            line-height: 2.5rem;
+        }
+    }
+
+}
