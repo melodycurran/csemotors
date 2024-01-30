@@ -47,18 +47,26 @@ h2, h3 {
 
 nav ul {
     display: flex;
-    padding: 1em;
     text-align: center;
     background-color: black;
+    height: 3rem;
+    align-items: center;
+    padding: 0;
+
+    :hover  {
+        background-color: #05bff7;
+    }
 
     li {
         flex: 1 1 auto;
         list-style: none;
         width: 2px;
+        height: 100%;
 
         a {
             @extend .siteName__link;
             color: white;
+            vertical-align: -50%;
         }
     }
 }
@@ -139,6 +147,53 @@ nav ul {
     padding-left: 1.5rem;
 }
 
+/******* Individual Vehicle/Product Page ******************/
+#vehicle-page img, .inv_display__img {
+    width: 100%;
+}
+
+#vehicle-page section p {
+    font-size: 1.5rem;
+}
+
+#vehicle-page section p span {
+    font-weight: bolder;
+}
+
+.vehicle_page__price {
+    background-color: rgba($highligt-color, .25);
+    padding: 1rem;
+    font-weight: bolder;
+}
+
+#inv-display {
+    list-style-type: none;
+    padding: 0;
+}
+
+/************** Error page ************************************/
+@keyframes error-page-animation {
+    from {background-position: 100%;}
+    to {background-position: -50000px;}
+ }
+
+.sprite-div {
+    width: 180px;
+    height: 220px;
+    background-image: url("../images/error-sprite.webp");
+    animation-name: error-page-animation;
+    animation-duration: 1.5s;
+    animation-timing-function: steps(3);
+    animation-iteration-count: infinite;
+    margin: 0 auto;
+    opacity: .45;
+}
+
+#error {
+    text-align: center;
+}
+ 
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
@@ -190,4 +245,22 @@ nav ul {
         }
     }
 
+    /******************Individual Vehicle/Product page**********************/
+    #vehicle-page {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+    }
+
+    #inv-display {
+        display: flex;
+        gap: .5rem 1rem;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: center;
+    }
+
+    #inv-display li {
+        flex: 0 1 30%;
+    }
 }

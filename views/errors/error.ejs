@@ -3,5 +3,7 @@
 <% } else {
     res.redirect('/')
 } %>
-
-<%- message %>
+<div id="error">
+    <div class="sprite-div"></div>
+    <p><%- message %></p>
+</div>
