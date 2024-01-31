@@ -19,6 +19,7 @@ invCont.buildVehicleView = async function (req, res, next) {
     const vehicle_id = req.params.vehicleId;
     let nav = await utilities.getNav();
     const data = await invModel.getInventoryByInventoryId(vehicle_id);
+    console.log(data.inv_id);
     let vehicleView = await utilities.buildVehiclePage(data[0]);
     let vehicleName = `${data[0].inv_year} ${data[0].inv_make} ${data[0].inv_model}`;
 

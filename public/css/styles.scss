@@ -192,6 +192,69 @@ nav ul {
 #error {
     text-align: center;
 }
+
+/************** Login page ************************************/
+#login {
+    width: 300px;
+    margin: 0 auto;
+}
+#login-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    border: 1px solid darkgrey;
+    border-radius: 5px;
+    padding: 2rem;
+
+    label {
+        font-weight: bolder;
+    }
+
+    input {
+        height: 2rem;
+        border: 1px solid darkgrey;
+    }
+
+    input[type="submit"] {
+        background-color: $highligt-color;
+        width: 30%;
+        border: none;
+        padding: 5px;
+        align-self: center;
+        font-weight: bolder;
+        margin-top: 1rem;
+    }
+
+    .login-form__submit-btn:hover {
+        background-color: black;
+        color: white;
+    }
+}
+
+#register {
+    @extend #login;
+    
+    #register-form {
+        @extend #login-form;
+    }
+}
+
+/******************** Pw Visibility ******************************/
+.hide-password {
+    display: none;
+}
+
+.show-password {
+    display: inline-block;
+}
+
+// .show-password {
+//     display: none;
+// }
+
+
+
+/************** Registration page ************************************/
  
 
 /***************************************************************
@@ -263,4 +326,6 @@ nav ul {
     #inv-display li {
         flex: 0 1 30%;
     }
+
+    /************** Login page ************************************/
 }

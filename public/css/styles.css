@@ -147,6 +147,43 @@ nav ul {
 #error {
   text-align: center; }
 
+/************** Login page ************************************/
+#login, #register {
+  width: 300px;
+  margin: 0 auto; }
+
+#login-form, #register #register-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: .5rem;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  padding: 2rem; }
+  #login-form label, #register #register-form label {
+    font-weight: bolder; }
+  #login-form input, #register #register-form input {
+    height: 2rem;
+    border: 1px solid darkgrey; }
+  #login-form input[type="submit"], #register #register-form input[type="submit"] {
+    background-color: #05bff7;
+    width: 30%;
+    border: none;
+    padding: 5px;
+    align-self: center;
+    font-weight: bolder;
+    margin-top: 1rem; }
+  #login-form .login-form__submit-btn:hover, #register #register-form .login-form__submit-btn:hover {
+    background-color: black;
+    color: white; }
+
+/******************** Pw Visibility ******************************/
+.hide-password {
+  display: none; }
+
+.show-password {
+  display: inline-block; }
+
+/************** Registration page ************************************/
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
@@ -202,6 +239,8 @@ nav ul {
     justify-content: center; }
 
   #inv-display li {
-    flex: 0 1 30%; } }
+    flex: 0 1 30%; }
+
+  /************** Login page ************************************/ }
 
 /*# sourceMappingURL=styles.css.map */

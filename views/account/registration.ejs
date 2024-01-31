@@ -1,0 +1,23 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+<%- messages() %>
+<div id="register">
+    
+    <form id="register-form" action="/account/registration" method="post">
+        <label for="fname">First name</label>
+        <input type="text" id="fname" name="account_firstname" required>
+        <label for="lname">Last name</label>
+        <input type="text" id="lname" name="account_lastname" required>
+        <label for="email">Email address</label required>
+        <input type="email" id="email" name="account_email" required>
+        <label for="password">Password </label>
+        <%- include('../partials/pwVisibility') %>
+        <input type="password" id="password" name="account_password" required>
+
+        <input class="login-form__submit-btn" type="submit" value="Register">
+    </form>
+</div>
+<script src="../.././js/script.js"></script>

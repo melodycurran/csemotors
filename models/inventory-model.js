@@ -32,7 +32,7 @@ async function getInventoryByInventoryId(inv_id) {
             `SELECT * FROM public.inventory
             WHERE inv_id = $1`,
             [inv_id]
-        )
+        );
         console.log(data.rows);
         return data.rows;
     } catch (error) {
