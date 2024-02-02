@@ -148,6 +148,11 @@ nav ul {
   text-align: center; }
 
 /************** Login page ************************************/
+input {
+  height: 2rem;
+  border: 1px solid;
+  width: 100%; }
+
 #login, #register {
   width: 300px;
   margin: 0 auto; }
@@ -161,9 +166,6 @@ nav ul {
   padding: 2rem; }
   #login-form label, #register #register-form label {
     font-weight: bolder; }
-  #login-form input, #register #register-form input {
-    height: 2rem;
-    border: 1px solid darkgrey; }
   #login-form input[type="submit"], #register #register-form input[type="submit"] {
     background-color: #05bff7;
     width: 30%;
@@ -176,14 +178,43 @@ nav ul {
     background-color: black;
     color: white; }
 
+#register #register-form small {
+  font-size: 12px;
+  color: gray;
+  font-style: italic; }
+
 /******************** Pw Visibility ******************************/
 .hide-password {
   display: none; }
 
 .show-password {
-  display: inline-block; }
+  display: inline; }
 
 /************** Registration page ************************************/
+.form-validation {
+  position: relative; }
+
+.validation-icons {
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  right: 22px; }
+  .validation-icons span {
+    position: absolute;
+    font-size: 1.2rem; }
+
+.form-validation.valid input {
+  border-color: #16de4b; }
+.form-validation.valid span.done {
+  color: #16de4b;
+  visibility: visible; }
+
+.form-validation.invalid input {
+  border-color: red; }
+.form-validation.invalid span.error {
+  color: red;
+  visibility: visible; }
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/

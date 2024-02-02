@@ -6,18 +6,64 @@
 <%- messages() %>
 <div id="register">
     
-    <form id="register-form" action="/account/registration" method="post">
-        <label for="fname">First name</label>
-        <input type="text" id="fname" name="account_firstname" required>
-        <label for="lname">Last name</label>
-        <input type="text" id="lname" name="account_lastname" required>
-        <label for="email">Email address</label required>
-        <input type="email" id="email" name="account_email" required>
-        <label for="password">Password </label>
-        <%- include('../partials/pwVisibility') %>
-        <input type="password" id="password" name="account_password" required>
+    <form name="register-form" id="register-form" action="/account/registration" method="post">
+        <div class="form-validation">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" class="form-input" name="account_firstname" required placeholder="John">
+            <span class="validation-icons">
+                <span class="material-symbols-outlined done">
+                    done
+                </span>
+                <span class="material-symbols-outlined error">
+                    error
+                </span>
+            </span>
+        </div>
+        
+        <div class="form-validation">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" class="form-input" name="account_lastname" required placeholder="Smith">
+            <span class="validation-icons">
+                <span class="material-symbols-outlined done">
+                    done
+                </span>
+                <span class="material-symbols-outlined error">
+                    error
+                </span>
+            </span>
+  
+        </div>
+        
+        <div class="form-validation">
+            <label for="email">Email address</label required>
+            <input type="email" id="email" class="form-input" name="account_email" required placeholder="Enter a valid email address">
+            <span class="validation-icons">
+                <span class="material-symbols-outlined done">
+                    done
+                </span>
+                <span class="material-symbols-outlined error">
+                    error
+                </span>
+            </span>
+        </div>
 
-        <input class="login-form__submit-btn" type="submit" value="Register">
+        <div class="form-validation">
+            <label for="password">Password <%- include('../partials/pwVisibility') %></label>
+            <input type="password" id="password" class="form-input" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" placeholder="Enter a valid password">
+            <span class="validation-icons">
+                <span class="material-symbols-outlined done">
+                    done
+                </span>
+                <span class="material-symbols-outlined error">
+                    error
+                </span>
+            </span>
+        </div>
+        
+            <small>*Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</small>
+        
+
+        <input id="register-btn" class="login-form__submit-btn" type="submit" value="Register">
     </form>
 </div>
 <script src="../.././js/script.js"></script>
