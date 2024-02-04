@@ -1,10 +1,9 @@
 
-function styleJs() {
+function managePasswordVisibility() {
     let pwVisibilityBtn = document.querySelectorAll('.visibility-icon');
     let showPw = document.querySelector('#on');
     let hidePw = document.querySelector('#off');
     let pw = document.querySelector('#password');
-    let visible = document.querySelector('#visibility');
     
     pwVisibilityBtn.forEach(el => {
         el.addEventListener('click', () => {
@@ -40,7 +39,6 @@ function clientValidation() {
             validation.className = 'form-validation invalid'
         } else {
             validation.className = 'form-validation valid'
-            console.log(input.getAttribute("id"));
             if (input.getAttribute("id") === "password") {
                 let isMatched = validatePassword(input.value);
                 if (!isMatched) validation.className = 'form-validation invalid';
@@ -54,6 +52,16 @@ function clientValidation() {
     }
 }
 
+function noticeControl() {
+    let liMsg = document.querySelectorAll('.notice > *');
+    liMsg.forEach(li => {
+        li.firstElementChild.addEventListener('click', () => {
+            li.style.display = 'none';
+        });
+    })
+}
 
-styleJs();
+
+managePasswordVisibility();
 clientValidation();
+noticeControl();

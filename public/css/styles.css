@@ -215,6 +215,22 @@ input {
   color: red;
   visibility: visible; }
 
+ul.notice {
+  list-style: none;
+  padding: 5px; }
+  ul.notice li {
+    vertical-align: middle;
+    float: left;
+    background-color: #05bff7;
+    width: 100%;
+    margin-bottom: .5rem;
+    padding: 5px; }
+    ul.notice li span {
+      float: right;
+      padding: 3px; }
+      ul.notice li span :hover {
+        background-color: white; }
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
@@ -272,6 +288,12 @@ input {
   #inv-display li {
     flex: 0 1 30%; }
 
-  /************** Login page ************************************/ }
+  /************** Registration page ************************************/
+  ul.notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    ul.notice li {
+      width: 30%; } }
 
 /*# sourceMappingURL=styles.css.map */
