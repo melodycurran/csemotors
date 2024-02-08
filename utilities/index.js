@@ -58,6 +58,9 @@ Util.buildClassificationGrid = async function(data) {
     return grid;
 }
 
+/* **************************************
+* Build the vehicle page view HTML
+* ************************************ */
 Util.buildVehiclePage = async function(element) {
    return `<div id="vehicle-page">
         <img src="${element.inv_image}" alt="Image of ${element.inv_make} ${element.inv_model} on CSE Motors">
@@ -70,6 +73,30 @@ Util.buildVehiclePage = async function(element) {
             <p class="vehicle_page__miles"><span>Miles: </span>${element.inv_miles.toLocaleString('en-US')}</p>
         </section>
     </div>`;
+}
+
+/* **************************************
+* Build the classification selection view HTML for Add Inventory
+* ************************************ */
+Util.buildClassificationSelection = async function(id) {
+    let data = await invModel.getClassifications();
+    let select = `<select id="choose-classification" name="classification_id" required>`;
+    let option;
+    select += `<option value="">Select classification</option>`
+    data.rows.forEach((row) => {
+
+        option = `<option id="${row.classification_id}" value="${row.classification_id}">${row.classification_name}</option>`
+
+        if (id == row.classification_id) {
+            option = `<option id="${row.classification_id}" value="${row.classification_id}" selected>${row.classification_name}</option>`
+        }
+
+        select += option;
+        
+    });
+    select += `</select>`;
+
+    return select;
 }
 
 /* ****************************************

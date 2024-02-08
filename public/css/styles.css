@@ -153,20 +153,20 @@ input {
   border: 1px solid;
   width: 100%; }
 
-#login, #register {
+#login, #register, #add-inventory, #add-classification {
   width: 300px;
   margin: 0 auto; }
 
-#login-form, #register #register-form {
+#login-form, #register #register-form, #add-inventory-form, #add-classification-form {
   display: flex;
   flex-direction: column;
   row-gap: .5rem;
   border: 1px solid darkgrey;
   border-radius: 5px;
   padding: 2rem; }
-  #login-form label, #register #register-form label {
+  #login-form label, #register #register-form label, #add-inventory-form label, #add-classification-form label {
     font-weight: bolder; }
-  #login-form input[type="submit"], #register #register-form input[type="submit"] {
+  #login-form input[type="submit"], #register #register-form input[type="submit"], #add-inventory-form input[type="submit"], #add-classification-form input[type="submit"] {
     background-color: #05bff7;
     width: 30%;
     border: none;
@@ -174,7 +174,7 @@ input {
     align-self: center;
     font-weight: bolder;
     margin-top: 1rem; }
-  #login-form .login-form__submit-btn:hover, #register #register-form .login-form__submit-btn:hover {
+  #login-form .login-form__submit-btn:hover, #register #register-form .login-form__submit-btn:hover, #add-inventory-form .login-form__submit-btn:hover, #add-classification-form .login-form__submit-btn:hover {
     background-color: black;
     color: white; }
 
@@ -230,6 +230,15 @@ ul.notice {
       padding: 3px; }
       ul.notice li span :hover {
         background-color: white; }
+
+/************** Add Inventory page ************************************/
+textarea[name="inv_description"], select[name="classification_id"] {
+  width: 100%; }
+
+.new-classifiction__p {
+  font-size: .75rem;
+  color: darkslategray;
+  font-style: italic; }
 
 /***************************************************************
 * FOR BIGGER SCREEN

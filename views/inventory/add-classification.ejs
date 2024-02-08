@@ -1,0 +1,23 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%- error.msg %><span>X</span></li>
+        <% }) %>
+    </ul>
+<% } %>
+
+<%- messages() %>
+
+<div id="add-classification">
+    <form id="add-classification-form" action="/inv/addClassification" method="post">
+        <label for="new-classifiction">Enter New Classification Name</label>
+        <p class="new-classifiction__p">Name must only contain alphanumeric characters</p>
+        <input name="classification_name" type="text" id="new-classifiction" required>
+        <input type="submit" value="Add">
+    </form>
+</div>

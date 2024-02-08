@@ -26,6 +26,9 @@ async function checkExistingEmail(account_email) {
     }
 }
 
+/* **********************
+ *   Retrieve Hashed Password
+ * ********************* */
 async function getHashedPassword(account_email) {
     try {
         const pw = await pool.query(`SELECT account_password FROM account WHERE account_email = $1`, [account_email]);
@@ -35,6 +38,8 @@ async function getHashedPassword(account_email) {
         return error.message;
     }
 }
+
+
 
 
 module.exports = {registerAccount, checkExistingEmail, getHashedPassword};

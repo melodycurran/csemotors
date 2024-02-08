@@ -323,6 +323,22 @@ ul.notice {
     
 }
 
+/************** Add Inventory page ************************************/
+#add-inventory, #add-classification {
+    @extend #login;
+}
+textarea[name="inv_description"], select[name="classification_id"] {
+    width: 100%;
+}
+
+#add-inventory-form, #add-classification-form {
+    @extend #login-form;
+}
+.new-classifiction__p {
+    font-size: .75rem;
+    color: darkslategray;
+    font-style: italic;
+}
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/

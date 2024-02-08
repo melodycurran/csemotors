@@ -74,7 +74,7 @@ async function processLogin(req, res, next) {
 
     try {
         const matchPw = await bcrypt.compare(account_password, hashedPasswordFromDb.account_password);
-        res.status(200).render("account/dashboard", {
+        res.status(200).render("account/login", {
             title: "Login",
             nav,
             errors: null,
