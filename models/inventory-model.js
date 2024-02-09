@@ -36,8 +36,7 @@ async function getInventoryByInventoryId(inv_id) {
             WHERE inv_id = $1`,
             [inv_id]
         );
-        console.log(data.rows);
-        return data.rows;
+        return data.rows[0];
     } catch (error) {
         console.error("getInventoryByInventoryId error" + error);
     }
@@ -113,10 +112,62 @@ async function addNewInventory(
     }
 }
 
+/* *****************************
+*   Update Inventory
+* *************************** */
+async function updateInventory(
+    inv_make, 
+    inv_model, 
+    inv_year, 
+    inv_description, 
+    inv_image, 
+    inv_thumbnail, 
+    inv_price, 
+    inv_miles, 
+    inv_color, 
+    classification_id,
+    inv_id
+) {
+    try {
+        const sql = `UPDATE public.inventory 
+        SET
+        inv_make = $1,
+        inv_model = $2,
+        inv_description = $3,
+        inv_image = $4,
+        inv_thumbnail = $5,
+        inv_price = $6,
+        inv_year = $7,
+        inv_miles = $8,
+        inv_color = $9,
+        classification_id = $10
+        WHERE
+        inv_id = $11
+        RETURNING *`;
+
+        return await pool.query(sql, [
+            inv_make, 
+            inv_model, 
+            inv_description, 
+            inv_image, 
+            inv_thumbnail,
+            inv_price,
+            inv_year, 
+            inv_miles, 
+            inv_color, 
+            classification_id,
+            inv_id,
+        ]);
+    } catch (err) {
+        return err.message;
+    }
+}
+
 module.exports = {getClassifications, 
     getInventoryByClassificationId, 
     getInventoryByInventoryId, 
     checkExistingClassification, 
     addNewClassification,
     addNewInventory,
+    updateInventory,
 };

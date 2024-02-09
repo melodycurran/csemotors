@@ -83,7 +83,6 @@ newInventoryValidation.inventoryValidationRules = () => {
         .notEmpty()
         .isAlpha()
         .withMessage("Please provide a valid vehicle color"),
-
     ]
 }
 
@@ -124,6 +123,51 @@ newInventoryValidation.checkInventoryData = async (req, res, next) => {
             inv_miles, 
             inv_color, 
             classification_id,
+            select,
+        })
+        return
+    }
+    next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to modifying inventory
+ * ***************************** */
+newInventoryValidation.checkUpdateData = async (req, res, next) => {
+    const nav = await utilities.getNav();
+    const {
+        inv_make, 
+        inv_model, 
+        inv_year, 
+        inv_description, 
+        inv_image, 
+        inv_thumbnail, 
+        inv_price, 
+        inv_miles, 
+        inv_color, 
+        classification_id,
+        inv_id } = req.body;
+
+    const select = await utilities.buildClassificationSelection(classification_id);
+    let errors = [];
+    errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        res.render("./inventory/edit-inventory", {
+            errors,
+            title: `Modify ${inv_make} ${inv_model}`, 
+            nav,
+            inv_make, 
+            inv_model, 
+            inv_year, 
+            inv_description, 
+            inv_image, 
+            inv_thumbnail, 
+            inv_price, 
+            inv_miles, 
+            inv_color, 
+            classification_id,
+            inv_id,
             select,
         })
         return

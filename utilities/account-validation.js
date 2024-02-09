@@ -68,12 +68,45 @@ serverValidation.checkRegData = async(req, res, next) => {
     next()
 }
 
-
-// serverValidation.checkLogin = async(req, res, next) => {
-//     const {account_email, account_password} = req.body;
-//     let errors = [];
-//     errors.validationResult(req);
+/*  **********************************
+ *  Login Data Validation Rules
+ * ********************************* */
+serverValidation.loginRules = () => {
+    return [
+        body('account_email')
+        .trim()
+        .notEmpty()
+        .isEmail()
+        .normalizeEmail()
+        .withMessage("Enter a valid email address")
+        .custom(async (account_email) => {
+            const emailExists = await accountModel.checkExistingEmail(account_email)
+            if (!emailExists) {
+                throw new Error('No email exists. Please register')
+            }
+        }),
+    ]
     
-// }
+}
+
+serverValidation.checkLogin = async(req, res, next) => {
+    let nav = await utilities.getNav();
+    const {account_email, account_password} = req.body;
+    let errors = [];
+    errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        res.render('account/login', {
+            errors,
+            title: "Log in",
+            nav,
+            account_email,
+            account_password,
+        })
+        return
+    }
+    next()
+
+}
 
 module.exports = serverValidation;

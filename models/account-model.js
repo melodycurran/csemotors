@@ -27,13 +27,13 @@ async function checkExistingEmail(account_email) {
 }
 
 /* **********************
- *   Retrieve Hashed Password
+ *   Retrieve Account using email
  * ********************* */
-async function getHashedPassword(account_email) {
+async function retrieveAccountwithEmail(account_email) {
     try {
-        const pw = await pool.query(`SELECT account_password FROM account WHERE account_email = $1`, [account_email]);
-        console.log(pw.rows);
-        return pw.rows[0];
+        const acctData = await pool.query(`SELECT account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1`, [account_email]);
+        console.log(acctData.rows);
+        return acctData.rows[0];
     } catch (error) {
         return error.message;
     }
@@ -42,4 +42,4 @@ async function getHashedPassword(account_email) {
 
 
 
-module.exports = {registerAccount, checkExistingEmail, getHashedPassword};
+module.exports = {registerAccount, checkExistingEmail, retrieveAccountwithEmail};

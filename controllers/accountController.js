@@ -1,6 +1,8 @@
 const utilities = require('../utilities');
 const accountModel = require('../models/account-model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 /* ****************************************
 *  Deliver login view
@@ -65,30 +67,39 @@ async function registerNewAccount(req, res, next) {
 }
 
 /* ****************************************
+*  Deliver Login view
+* *************************************** */
+async function buildLoginManagement (req, res, next) {
+    let nav = await utilities.getNav();
+    res.render("account/account-management", {title: "Log in", nav, errors: null});
+    // req.flash("notice", "This is a flash message.")
+}
+
+/* ****************************************
 *  Process Login
 * *************************************** */
 async function processLogin(req, res, next) {
     let nav = await utilities.getNav();
     const {account_email, account_password} = req.body;
-    let hashedPasswordFromDb = await accountModel.getHashedPassword(account_email);
+    let acctCredential = await accountModel.retrieveAccountwithEmail(account_email);
 
+    if (!acctCredential) {
+        req.flash("notice", "Please check your credentials and try again.");
+        res.status(400).render("account/login", {title: "Login", nav, errors: null, account_email});
+        return
+    }
+    
     try {
-        const matchPw = await bcrypt.compare(account_password, hashedPasswordFromDb.account_password);
-        res.status(200).render("account/login", {
-            title: "Login",
-            nav,
-            errors: null,
-        });
-        req.flash("notice", "Login Successful!")
-
+        if (await bcrypt.compare(account_password, acctCredential.account_password)) {
+            delete acctCredential.account_password;
+            const accessToken = jwt.sign(acctCredential, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 3600 * 1000});
+            res.cookie("jwt", accessToken, {httpOnly: true, maxAge: 3600 * 1000});
+            return res.redirect("/account/");
+        }
     } catch (error) {
-        res.status(501).render("account/login", {
-            title: "Login",
-            nav,
-            errors: null,
-        })
+        return new Error('Access Forbidden');
     }
 }
 
 
-module.exports = {buildLogin, buildRegistration, registerNewAccount, processLogin}
+module.exports = {buildLogin, buildRegistration, registerNewAccount, processLogin, buildLoginManagement}
