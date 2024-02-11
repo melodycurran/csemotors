@@ -33,4 +33,9 @@ router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInvent
 router.post("/update/", newInventoryValidate.inventoryValidationRules(), newInventoryValidate.checkUpdateData,
     utilities.handleErrors(invController.processUpdateInventory));
 
+//Route to get the data to be deleted
+router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInventoryView));
+//Route to process deletion of data
+router.post("/delete", utilities.handleErrors(invController.processDeleteInventory));
+
 module.exports = router;

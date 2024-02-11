@@ -120,7 +120,7 @@ Util.checkJWTToken = (req, res, next) => {
                 if (err) {
                     req.flash("Please log in");
                     res.clearCookie("jwt");
-                    return res.redirect("/account/login")
+                    return res.redirect("/account/login");
                 }
                 res.locals.accountCredential = accountCredential;
                 res.locals.loggedIn = 1;
@@ -132,6 +132,7 @@ Util.checkJWTToken = (req, res, next) => {
     }
 }
 
+
 /* ****************************************
  *  Check Login
  * ************************************ */
@@ -141,6 +142,18 @@ Util.checkLogin = (req, res, next) => {
     } else {
         req.flash("notice", "Please log in.");
         return res.redirect("account/login");
+    }
+}
+
+/* ****************************************
+ *  Decode JWT token from cookie
+ * ************************************ */
+Util.decodeToken = (token) => {
+    try {
+        const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        return data;
+    } catch (err) {
+        console.error(err.message);
     }
 }
 

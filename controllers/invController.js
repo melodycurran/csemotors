@@ -24,7 +24,6 @@ invCont.buildVehicleView = async function (req, res, next) {
     const data = await invModel.getInventoryByInventoryId(vehicle_id);
     let vehicleView = await utilities.buildVehiclePage(data);
     let vehicleName = `${data.inv_year} ${data.inv_make} ${data.inv_model}`;
-
     res.render("./inventory/vehicle", {title: vehicleName, vehicleView, nav});
 }
 
@@ -33,10 +32,13 @@ invCont.buildVehicleView = async function (req, res, next) {
  * ************************** */
 invCont.buildManagement = async (req, res, next) => {
     let nav = await utilities.getNav();
-    const classificationSelect = await utilities.buildClassificationSelection();
+    const token = req.cookies.jwt;
+        if (!token) {
+            res.redirect("/account/login");
+        }
 
+    const classificationSelect = await utilities.buildClassificationSelection();
     res.render("./inventory/management", {title: "Vehicle Management", nav, classificationSelect});
-    
 }
 
 /* ***************************
@@ -147,7 +149,6 @@ invCont.buildEditInventoryView = async (req, res, next) => {
     const name = `${data.inv_make} ${data.inv_model}`
     const select = await utilities.buildClassificationSelection(data.classification_id)
 
-    console.log(data);
     res.render("./inventory/edit-inventory", {
         title: `Modify ${name}`, 
         nav, 
@@ -201,10 +202,10 @@ invCont.processUpdateInventory = async (req, res, next) => {
     if (invResult) {
         const name = `${inv_make} ${inv_model}`
         req.flash("notice", `The item ${name} was successfully updated.`);
-        res.redirect("/inv/")
+        res.redirect("/inv/");
     } else {
         const select = await utilities.buildClassificationSelection(classification_id)
-        const name = `${invResult.inv_make} ${invResult.inv_model}`
+        const name = `${inv_make} ${inv_model}`
         req.flash("notice", "Sorry, the update failed");
         res.status(501).render("./inventory/edit-inventory", {
             title: `Edit ${name}`, 
@@ -225,6 +226,57 @@ invCont.processUpdateInventory = async (req, res, next) => {
         })
     }
 }
+
+/* ***************************
+ *  Build Delete inventory view
+ * ************************** */
+invCont.buildDeleteInventoryView = async (req, res, next) => {
+    const nav = await utilities.getNav();
+    const inv_id = parseInt(req.params.inv_id)
+    const data = await invModel.getInventoryByInventoryId(inv_id)
+    const name = `${data.inv_make} ${data.inv_model}`
+
+    res.render("./inventory/delete-confirm", {
+        title: `Delete ${name}`, 
+        nav, 
+        errors: null, 
+        inv_make: data.inv_make,
+        inv_model: data.inv_model,
+        inv_year: data.inv_year,
+        inv_price: data.inv_price,
+        inv_id: data.inv_id,
+    });
+}
+
+/* ****************************************
+*  Process Delete Inventory data
+* *************************************** */
+invCont.processDeleteInventory = async (req, res, next) => {
+    const nav = await utilities.getNav();
+    const {inv_make, inv_model, inv_id} = req.body;
+    parseInt(inv_id);
+    const name = `${inv_make} ${inv_model}`
+    const invResult = await invModel.deleteInventory(inv_id);
+
+    if (invResult) {
+        req.flash("notice", `${name} was successfully deleted.`);
+        res.redirect("/inv/");
+    } else {
+        const name = `${inv_make} ${inv_model}`
+        req.flash("notice", "Sorry, the update failed");
+        res.status(501).render("./inventory/delete-confirm", {
+            title: `Delete ${name}`, 
+            nav, 
+            errors: null, 
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_price,
+            inv_id,
+        })
+    }
+}
+
 
 
 module.exports = invCont;

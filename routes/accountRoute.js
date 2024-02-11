@@ -17,6 +17,17 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 //Account management route
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildLoginManagement));
 
+//Route for editing account
+router.get("/edit/:account_id", utilities.handleErrors(accountController.displayEditView));
+//Route for processing account update
+router.post("/edit/:account_id", serverValidate.accountUpdateRules(), serverValidate.checkUpdateData, 
+    utilities.handleErrors(accountController.processAccountUpdate));
+//Route for processing password update
+router.post("/updatePassword", serverValidate.passwordUpdateRules(), serverValidate.checkPasswordUpdate, 
+    utilities.handleErrors(accountController.processPasswordUpdate));
+
+//Route for processing logout
+router.get("/logout", utilities.handleErrors(accountController.processLogout));
 
 
 module.exports = router;

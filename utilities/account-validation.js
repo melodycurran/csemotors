@@ -46,26 +46,27 @@ serverValidation.registrationRules = () => {
     ]
 }
 
-/* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
-serverValidation.checkRegData = async(req, res, next) => {
-    const {account_firstname, account_lastname, account_email} = req.body;
-    let errors = [];
-    errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        let nav = await utilities.getNav();
-        res.render('account/registration', {
-            errors,
-            title: "New User Registration",
-            nav,
-            account_firstname,
-            account_lastname,
-            account_email,
-        })
-        return
-    }
-    next()
+/*  **********************************
+ *  Account update Data Validation Rules
+ * ********************************* */
+serverValidation.accountUpdateRules = () => {
+    return [
+        body('account_firstname')
+        .trim()
+        .isLength({min: 1})
+        .withMessage("First name should not be empty"),
+
+        body('account_lastname')
+        .trim()
+        .isLength({min: 1})
+        .withMessage("Last name should not be empty"),
+
+        body('account_email')
+        .trim()
+        .isEmail()
+        .normalizeEmail()
+        .withMessage("A valid email is required"),
+    ]
 }
 
 /*  **********************************
@@ -89,9 +90,92 @@ serverValidation.loginRules = () => {
     
 }
 
+/*  **********************************
+ *  Password update Data Validation Rules
+ * ********************************* */
+serverValidation.passwordUpdateRules = () => {
+    return [
+        body('account_password')
+        .trim()
+        .isStrongPassword({
+            minLength: 12,
+            minLowercase: 1,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 1,
+        })
+        .withMessage('Password does not meet requirements.'),
+    ]
+}
+
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+serverValidation.checkRegData = async(req, res, next) => {
+    const {account_firstname, account_lastname, account_email} = req.body;
+    let errors = [];
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        res.render('account/registration', {
+            errors,
+            title: "New User Registration",
+            nav,
+            account_firstname,
+            account_lastname,
+            account_email,
+        })
+        return
+    }
+    next()
+}
+
+/* ******************************
+ * Check data and return errors or continue to updating account
+ * ***************************** */
+serverValidation.checkUpdateData = async(req, res, next) => {
+    const {account_firstname, account_lastname, account_email} = req.body;
+    let errors = [];
+    errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        res.render('./account/edit-account', {
+            errors,
+            title: "Edit Account",
+            nav,
+            account_firstname,
+            account_lastname,
+            account_email,
+        })
+        return
+    }
+    next()
+}
+
 serverValidation.checkLogin = async(req, res, next) => {
     let nav = await utilities.getNav();
     const {account_email, account_password} = req.body;
+    let errors = [];
+    errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        res.render('account/edit-account', {
+            errors,
+            title: "Edit Account",
+            nav,
+        })
+        return
+    }
+    next()
+
+}
+
+/* ******************************
+ * Check password and return errors or continue to updating account
+ * ***************************** */
+serverValidation.checkPasswordUpdate = async (req, res, next) => {
+    let nav = await utilities.getNav();
+    const {account_password} = req.body;
     let errors = [];
     errors = validationResult(req);
     
@@ -106,7 +190,6 @@ serverValidation.checkLogin = async(req, res, next) => {
         return
     }
     next()
-
 }
 
 module.exports = serverValidation;

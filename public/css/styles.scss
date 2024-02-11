@@ -331,7 +331,7 @@ textarea[name="inv_description"], select[name="classification_id"] {
     width: 100%;
 }
 
-#add-inventory-form, #add-classification-form {
+#add-inventory-form, #add-classification-form, #edit-inventory-form {
     @extend #login-form;
 }
 .new-classifiction__p {
@@ -339,6 +339,34 @@ textarea[name="inv_description"], select[name="classification_id"] {
     color: darkslategray;
     font-style: italic;
 }
+
+/************** Manage Inventory page ************************************/
+#classification, #update-info, #update-pw {
+    @extend #login;
+    margin: 0;
+}
+
+#delete-inventory {
+    @extend #login;
+}
+
+#delete-inventory-form {
+    @extend #login-form;
+}
+
+#delete-inventory-form input {
+    border-color: gray;
+}
+
+#delete-inventory-form label {
+    font-weight: bolder;
+}
+
+#delete-inventory-form small {
+    font-weight: bolder;
+    color: red;
+}
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
