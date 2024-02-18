@@ -1,5 +1,6 @@
 const utilities = require('../utilities');
 const accountModel = require('../models/account-model');
+const reviewModel = require('../models/review-model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -102,15 +103,23 @@ async function processLogin(req, res, next) {
 * *************************************** */
 async function buildLoginManagement (req, res, next) {
     let nav = await utilities.getNav();
-        const token = req.cookies.jwt;
-        if (!token) {
-            res.redirect("/login");
-            return error.message;
-        }
-
+    const token = req.cookies.jwt;
     const decodedToken = utilities.decodeToken(token);
     const data = await accountModel.retrieveAccountwithId(decodedToken.account_id);
+    const review = await reviewModel.getReviewByAccountId(decodedToken.account_id);
+    let reviewHTML;
 
+    if (!token) {
+        res.redirect("/login");
+        return error.message;
+    }
+
+    if (review.length === 0) {
+        reviewHTML = `<p>You don't have any reviews yet.</p>`
+    } else {
+        reviewHTML = review.map(item => utilities.reviewTemplate(item.date_posted, item.star, item.review)).join("");
+    }
+    
     res.render("account/account-management", {
         title: "Account Management", 
         nav, 
@@ -118,6 +127,7 @@ async function buildLoginManagement (req, res, next) {
         account_type: data.account_type,
         account_firstname: data.account_firstname,
         account_id: data.account_id,
+        reviewHTML,
     });
 }
 

@@ -153,20 +153,20 @@ input {
   border: 1px solid;
   width: 100%; }
 
-#login, #register, #add-inventory, #add-classification, #classification, #update-info, #update-pw, #delete-inventory {
+#login, #register, #add-inventory, #add-classification, #classification, #update-info, #update-pw, #delete-inventory, .form-container {
   width: 300px;
   margin: 0 auto; }
 
-#login-form, #register #register-form, #add-inventory-form, #add-classification-form, #edit-inventory-form, #delete-inventory-form {
+#login-form, #register #register-form, #add-inventory-form, #add-classification-form, #edit-inventory-form, #delete-inventory-form, #review-form {
   display: flex;
   flex-direction: column;
   row-gap: .5rem;
   border: 1px solid darkgrey;
   border-radius: 5px;
   padding: 2rem; }
-  #login-form label, #register #register-form label, #add-inventory-form label, #add-classification-form label, #edit-inventory-form label, #delete-inventory-form label {
+  #login-form label, #register #register-form label, #add-inventory-form label, #add-classification-form label, #edit-inventory-form label, #delete-inventory-form label, #review-form label {
     font-weight: bolder; }
-  #login-form input[type="submit"], #register #register-form input[type="submit"], #add-inventory-form input[type="submit"], #add-classification-form input[type="submit"], #edit-inventory-form input[type="submit"], #delete-inventory-form input[type="submit"] {
+  #login-form input[type="submit"], #register #register-form input[type="submit"], #add-inventory-form input[type="submit"], #add-classification-form input[type="submit"], #edit-inventory-form input[type="submit"], #delete-inventory-form input[type="submit"], #review-form input[type="submit"] {
     background-color: #05bff7;
     width: 30%;
     border: none;
@@ -174,7 +174,7 @@ input {
     align-self: center;
     font-weight: bolder;
     margin-top: 1rem; }
-  #login-form .login-form__submit-btn:hover, #register #register-form .login-form__submit-btn:hover, #add-inventory-form .login-form__submit-btn:hover, #add-classification-form .login-form__submit-btn:hover, #edit-inventory-form .login-form__submit-btn:hover, #delete-inventory-form .login-form__submit-btn:hover {
+  #login-form .login-form__submit-btn:hover, #register #register-form .login-form__submit-btn:hover, #add-inventory-form .login-form__submit-btn:hover, #add-classification-form .login-form__submit-btn:hover, #edit-inventory-form .login-form__submit-btn:hover, #delete-inventory-form .login-form__submit-btn:hover, #review-form .login-form__submit-btn:hover {
     background-color: black;
     color: white; }
 
@@ -254,6 +254,46 @@ textarea[name="inv_description"], select[name="classification_id"] {
   font-weight: bolder;
   color: red; }
 
+/********************** For ratings **************************/
+.review {
+  position: relative;
+  background-color: lightgray;
+  border-radius: 5px;
+  list-style-type: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-right: 60px solid white; }
+
+ul.review:after {
+  content: '';
+  position: absolute;
+  right: -1.5rem;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  border-left: lightgray solid 1.5rem; }
+
+#star-rating {
+  display: flex;
+  list-style-type: none;
+  padding: 0; }
+
+.rating:hover,
+.rating:has(~ .rating:hover) {
+  background-color: #05bff7; }
+
+.active {
+  background-color: #05bff7; }
+
+input[type="radio"] {
+  display: none; }
+
+input[type="radio"]:required, #star-rating:after {
+  content: '* Required';
+  color: red;
+  font-style: italic; }
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
@@ -317,6 +357,19 @@ textarea[name="inv_description"], select[name="classification_id"] {
     flex-direction: column;
     align-items: center; }
     ul.notice li {
-      width: 30%; } }
+      width: 30%; }
+
+  /************** Review page ************************************/
+  #review-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem; }
+
+  .form-container {
+    grid-column: 2; }
+
+  #review-container__all-reviews {
+    grid-column: 1;
+    grid-row: 1; } }
 
 /*# sourceMappingURL=styles.css.map */

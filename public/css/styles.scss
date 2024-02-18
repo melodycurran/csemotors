@@ -367,6 +367,64 @@ textarea[name="inv_description"], select[name="classification_id"] {
     color: red;
 }
 
+/********************** For ratings **************************/
+.form-container {
+    @extend #login;
+}
+
+#review-form {
+    @extend #login-form;
+}
+
+.review {
+    position: relative;
+    background-color: lightgray;
+    border-radius: 5px;
+    list-style-type: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-right: 60px solid white;
+}
+
+ul.review:after {
+    content: '';
+    position: absolute;
+    right: -1.5rem;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-left: lightgray solid 1.5rem;
+}
+
+#star-rating {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+.rating:hover, 
+.rating:has(~ .rating:hover) {
+    background-color: $highligt-color;
+}
+
+.active {
+    background-color: $highligt-color;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:required, #star-rating:after {
+    content: '* Required';
+    color: red;
+    font-style: italic;
+}
+
+
+
+
 /***************************************************************
 * FOR BIGGER SCREEN
 ****************************************************************/
@@ -447,5 +505,21 @@ textarea[name="inv_description"], select[name="classification_id"] {
         li {
             width: 30%;
         }
+    }
+
+    /************** Review page ************************************/
+    #review-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+    }
+
+    .form-container {
+        grid-column: 2;
+    }
+
+    #review-container__all-reviews {
+        grid-column: 1;
+        grid-row: 1;
     }
 }

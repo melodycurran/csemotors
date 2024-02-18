@@ -157,4 +157,43 @@ Util.decodeToken = (token) => {
     }
 }
 
+/* **************************************
+* Build the review view HTML template
+* ************************************ */
+Util.reviewTemplate = (date_posted, star, review, account_firstname, account_lastname) => {
+    let starRating = `<span>`
+    let starString = `stars`;
+    let ul;
+
+    if (star === 1) {
+        starString = `star`;
+    }
+
+    //Turn the rating from number to star icons when displayed
+    for (i = 0; i < star; i++) {
+        starRating += `<span class="material-symbols-outlined">
+            star_rate
+        </span>`
+    }
+    starRating += `</span>`;
+
+    if (account_firstname && account_lastname) {
+        ul = `<ul class="review">
+            <li>By: <span>${account_firstname} ${account_lastname}</span></li>
+            <li>${date_posted}</li>
+            <li>${starRating} ${star} ${starString}</li>
+            <li>${review}</li>
+        </ul>`;
+    } else {
+        ul = `<ul class="review">
+            <li>${date_posted}</li>
+            <li>${starRating} ${star} ${starString}</li>
+            <li>${review}</li>
+        </ul>`;
+    }
+    
+    return ul;
+}
+
+
 module.exports = Util;

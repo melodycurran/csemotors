@@ -15,9 +15,15 @@
 <h2>Welcome <%- locals.account_firstname %></h2>
 <h3>You're logged in</h3>
 
-<a href="../../account/edit/<%- locals.account_id %>">Edit Account Information</a>   
+<a href="../../account/edit/<%- locals.account_id %>">Edit Account Information</a><br>
+<a href="../../review">Leave Review</a>  
 
 <% if (locals.account_type == 'Employee' || locals.account_type == 'Admin') { %>
     <h3>Inventory Management</h3>
     <a href="../../inv">Manage Inventory</a>
 <% } %>
+
+<h3>Your Reviews</h3>
+<p>Reviews can't be deleted nor editable.</p>
+<%- reviewHTML %>
+
